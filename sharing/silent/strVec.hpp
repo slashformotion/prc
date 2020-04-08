@@ -1,56 +1,57 @@
 //----------------------------------------------------------------------------
 
-#ifndef S4PRC_STRVEC_HPP
-#define S4PRC_STRVEC_HPP
+#ifndef S4PRC_StrVecSilent_HPP
+#define S4PRC_StrVecSilent_HPP
 
 #include <vector>
 #include <tuple>
+#include <string>
 
 namespace s4prc {
 
-    using StrVec = std::vector<std::string>;
+    using StrVecSilent = std::vector<std::string>;
 
-    StrVec
-    makeStrVec(int count);
+    StrVecSilent
+    makeStrVecSilent(int count);
 
     //---- vector functions ----
 
-    vector<StrVec>
-    changeByVal(vector<StrVec> sv,
+    vector<StrVecSilent>
+    changeByVal(vector<StrVecSilent> sv,
                 std::string s,
                 char c);
 
     void
-    changeByRef(vector<StrVec> &sv,
+    changeByRef(vector<StrVecSilent> &sv,
                 std::string s,
                 char c);
 
     std::tuple<vector<std::string>, // even strings
             vector<std::string>, // odd strings
             int>                // total length
-    manyResults(const vector<StrVec> &sv);
+    manyResults(const vector<StrVecSilent> &sv);
 
     //---- silent functions ----
 
-    StrVec
-    changeByVal(StrVec sv,
+    StrVecSilent
+    changeByVal(StrVecSilent sv,
                 std::string s,
                 char c);
 
     void
-    changeByRef(StrVec &sv,
+    changeByRef(StrVecSilent &sv,
                 std::string s,
                 char c);
 
     std::tuple<std::string, // even strings
             std::string, // odd strings
             int>         // total length
-    manyResults(const StrVec &sv);
+    manyResults(const StrVecSilent &sv);
 
-    std::tuple<vector<std::string>, vector<std::string>,int> manyResults(const vector<StrVec> &sv);
+    std::tuple<vector<std::string>, vector<std::string>,int> manyResults(const vector<StrVecSilent> &sv);
 
 } // namespace s4prc
 
-#endif // S4PRC_STRVEC_HPP
+#endif // S4PRC_StrVecSilent_HPP
 
 //----------------------------------------------------------------------------

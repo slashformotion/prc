@@ -1,11 +1,11 @@
-#include "strVec.hpp"
+
 #include <vector>
 #include <string>
 namespace s4prc{
 
-    StrVec makeStrVec(int count)
+    StrVecSilent makeStrVecSilent(int count)
     {
-        StrVec result;
+        StrVecSilent result;
         for(int i=0; i<count; ++i)
         {
             result.emplace_back("str"+std::to_string(i));
@@ -13,7 +13,7 @@ namespace s4prc{
         return result;
     }
 
-    vector<StrVec> changeByVal(vector<StrVec> sv, std::string s, char c)
+    vector<StrVecSilent> changeByVal(vector<StrVecSilent> sv, std::string s, char c)
     {
         std::cout << "~~~~ enter " << __func__ << "() ~~~~\n";
         sv.emplace_back(std::move(s));
@@ -26,7 +26,7 @@ namespace s4prc{
     }
 
 
-    void changeByRef(vector<StrVec> &sv, std::string s, char c)
+    void changeByRef(vector<StrVecSilent> &sv, std::string s, char c)
     {
         std::cout << "~~~~ enter " << __func__ << "() ~~~~\n";
         sv.emplace_back(std::move(s));
@@ -37,7 +37,7 @@ namespace s4prc{
         std::cout << "~~~~ leave " << __func__ << "() ~~~~\n";
     }
 
-    std::tuple<vector<std::string>, vector<std::string>,int>  manyResults(const vector<StrVec> &sv)
+    std::tuple<vector<std::string>, vector<std::string>,int>  manyResults(const vector<StrVecSilent> &sv)
     {
         std::cout << "~~~~ enter " << __func__ << "() ~~~~\n";
         vector<std::string> even, odd;
