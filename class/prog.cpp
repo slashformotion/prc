@@ -48,10 +48,10 @@ void test_Schoolbag()
      s4prc::Book italian{{"uno", "due",   "tre",    "quattro", "cinque",
                          "sei", "sette", "otto",   "nove",    "dieci"}};
      s4prc::SchoolBag bag1{std::move(english), std::move(italian)};
-     s4prc::SchoolBag bag2{std::move(bag1)};
+     s4prc::SchoolBag bag2{bag1};
      s4prc::SchoolBag bag3;
-     bag3=std::move(bag2);
-     read("english from bag1", english);
+     bag3=bag2;
+     
      read("english from bag1", bag1.english());
      read("italian from bag1", bag1.italian());
      read("english from bag2", bag2.english());
