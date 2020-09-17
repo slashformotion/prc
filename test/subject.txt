@@ -1,0 +1,153 @@
+
+Le but de cette épreuve est de "refactoriser" (c'est à dire améliorer 
+sans en modifier le fonctionnement) un programme conçu par un
+développeur tiers peu experimenté n'ayant visiblement pas connaissance
+des notions de programmation générique du langage C++ moderne.
+Vous recevez donc les fichiers prog.cpp, DoubleValues.hpp et
+FloatValues.hpp. Prenez connaissance de ces fichiers, ainsi que du
+résultat de leur compilation et de leur execution. //OOK
+OKKKKKKKKKKKKKK
+Vous recevez également un fichier "test_non_regression_02062020.txt"
+qui contient le résultat affiché par ce programme dans la console
+avant vos modifications. Le but étant de ne pas modifier le
+fonctionnement de ce programme, vous devrez vous assurer avant de
+rendre votre travail que les affichages réalisés par votre programme
+sont toujours identiques au contenu de ce fichier.
+OKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+A la fin de l'épreuve, vous devrez rendre le fichier prog.cpp ainsi
+que les autres fichiers sources de votre programme. La liste de ces
+fichiers pourra différer de la liste des fichiers de départ (vous
+pouvez ajouter ou supprimer des fichiers au programme !).
+OKKKKKKKKKKKKKKKKKKKK
+Ce qui vous est demandé ici est similaire à ce dont vous avez
+l'habitude durant les séances à l'ENIB. Vous êtes supposé :
+-> suivre l'organisation classique (.hpp, .cpp, namespace...) et
+  utiliser le fichier GNUmakefile habituel, (le programme principal
+  s'appellera prog.cpp)
+-> respecter toutes les bonnes pratiques concernant la mise en
+  forme et la lisibilité/maintenabilité du code source,
+-> s'assurer du fait que le programme peut être fabriqué et exécuté
+  sans encombre !
+
+!!! Etant donné qu'il vous est fourni un programme complet et
+!!! fonctionnel, il va de soit que vous ne serez pas évalué sur le
+!!! résultat de votre programme, mais bien sur la bonne utilisation
+!!! des notions de programmation génériques vues en cours.
+
+!!! Conseil : Il sera plus simple pour vous de partir de fichiers
+!!! vierges dans un nouveau répertoire et de reporter petit à petit
+!!! les portions de code concernées en suivant l'ordre des consignes
+!!! ci-dessous.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Vous avez sans doute remarqué en analysant les fichiers fournis que
+les types DoubleValues et FloatValues sont très similaires, aussi ces
+deux modules contiennent une proportion de code dupliqué non
+négligeable.
+
+-> Proposez une structure générique afin de remplacer les deux types
+DoubleValues et FloatValues et de limiter la duplication de code.
+-> Reportez la fonction toString() et adaptez la pour qu'elle soit
+désormais une fonction générique prennant en paramètre une variable de
+votre nouveau type.
+-> Ré-ecrivez la fonction testInitAndDisplay() de prog.cpp afin
+qu'elle utilise votre nouvelle structure générique.
+-> Après cette étape, vérifiez que les affichages de testInitAndDisplay()
+sont identiques à ceux du fichier "test_non_regression_02062020.txt".
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+La fonction toString() utilise une boucle for classique avec un
+compteur, ce qui n'est pas la meilleure manière de parcourir
+un conteneur.
+
+-> Proposez une écriture simplifiée de cette fonction en modifiant
+la boucle de parcours du conteneur.
+-> Après cette étape, vérifiez que les affichages de testInitAndDisplay()
+sont identiques à ceux du fichier "test_non_regression_02062020.txt".
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+La fonction applyLimitBefore() utilise également des boucles for
+classiques afin de déterminer la position d'une valeur dans le
+vecteur 'data' et de modifier toutes les valeurs précédentes par
+le membre limitLow.
+
+-> Reportez cette fonction et proposez une écriture simplifiée pour
+obtenir la position de la valeur passée en paramètre en utilisant
+la fonction standard std::find().
+-> À partir de la position obtenue précédemment, utilisez la fonction
+std::for_each() afin de parcourir les éléments du vecteur et
+de remplacer chaque valeur par limitLow.
+-> Après cette étape, reportez la fonction testapplyLimitBefore() et
+vérifiez que ses affichages sont identiques à ceux du fichier 
+"test_non_regression_02062020.txt".
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Les fonctions increaseValuesBySquare() et increaseValuesByNLog()
+initiallement présentes dans FloatValues.hpp sont presque
+identiques : elles appliquent une fonction mathématique sur
+les valeurs du vecteur data et elles retournent la nouvelle
+valeur maximale des données.
+
+-> Remplacez ces deux fonctions par une unique fonction générique
+qui possèdera un second paramètre contenant un traitement qui
+pourra être appelé sur les éléments mémorisés dans cette structure.
+-> Remplacez la boucle for par un appel à la fonction std::for_each()
+afin de parcourir les éléments du vecteur et d'appliquer le traitement
+reçu en paramètre sur les valeurs du vecteur.
+-> Ré-écrivez la fonction testIncreaseValues() de prog.cpp afin
+qu'elle utilise votre nouvelle fonction générique.
+-> Après cette étape, reportez la fonction testIncreaseValues()
+et vérifiez que ses affichages sont identiques à ceux du fichier
+"test_non_regression_02062020.txt".
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+La fonction maxBetweenPos() utilise elle aussi une boucle for
+classique, ce qui n'est pas la façon la plus simple de parcourir
+un conteneur.
+
+-> Reportez la fonction maxBetweenPos() et modifiez la afin
+qu'elle prenne en paramètre deux itérateurs et qu'elle utilise
+désormais la fonction générique standard std::max_element() 
+afin de calculer la valeur maximale des élements entre les deux itérateurs.
+Les documentations des fonctions sont disponibles ici:
+https://en.cppreference.com/w/cpp/algorithm/max_element
+-> Ré-écrivez la fonction testmaxBetweenPos() afin qu'elle
+fournisse désormais des itérateurs à la fonction maxBetweenPos()
+en calculant la valeur maximale sur les mêmes index que précédemment;
+-> Après cette étape, vérifiez que les affichages de 
+testmaxBetweenPos() sont identiques à ceux du fichier
+"test_non_regression_02062020.txt".
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Vous avez peut-être remarqué que le développeur de ce programme
+à également oublié de respecter certaines bonnes pratiques du
+langage C++.
+
+-> En plus de votre refactorisation, vérifiez également que la
+facilité ADL, le mot clé const et le mot clé auto sont utilisés
+autant que possible.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Rendu du travail
+~~~~~~~~~~~~~~~~
+
+Rendez-vous sur la page Moodle depuis laquelle vous avez obtenu
+cet exercice.
+
+Utilisez le bouton "Ajouter un travail".
+  ( ou "Modifier le travail" en cas de nouveau dépôt )
+
+Dans la zone "Remise des fichiers", placez les fichiers .cpp et .hpp
+réalisés par vos soins.
+
+Cochez la case
+  "This assignment is my own work, except where I have
+   acknowledged the use of the works of other people"
+qui est située juste au dessus.
+
+Utilisez le bouton "Enregistrer".
+
+Vous devriez recevoir un e-mail automatique attestant de ce dépôt.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------------------------------------------------------
